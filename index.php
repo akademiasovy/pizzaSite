@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="./css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="./js/javascript.js"></script>
 </head>
 <body>
   <div class="container mainContainer">
@@ -13,7 +14,7 @@
       <div class="col-md-8 textHeader">
 	  <h2>Pizzasite</h2>
       </div>
-      <div class="col-md-2 headerBtn">
+      <div class="col-md-2 headerBtn" onclick="showSignUpForm()">
           <h3>Sign up</h3>
       </div>
       <div class="col-md-2 headerBtn">
@@ -41,14 +42,20 @@
           $html="<div style=\"width: 100%;\">";
           $count=0;
           while($row = mysqli_fetch_assoc($result)) {
+
             if ($count==0) {
               $html=$html."<div class=\"row\">";
             }
 
             $html=$html."<div class=\"col-md-4 pizzaContainer\">";
+            $html=$html."<img src=\"images/".$row["imagePath"]."\">";
+            $html=$html."<br><br>";
             $html=$html."<p>".$row["name"]."</p>";
+            $html=$html."<p>$".$row["price"]."</p>";
             $html=$html."<br>";
-            $html=$html."<p>Price: $".$row["price"]."</p>";
+            $html=$html."<div class=\"addToCartBtn\" onclick=\"incrementAmount(pizza".$row["id"]."amount);\">";
+            $html=$html."Add to cart <p id=\"pizza".$row["id"]."amount\">0</p>";
+            $html=$html."</div>";
             $html=$html."</div>";
 
             if ($count==2) {
@@ -82,6 +89,10 @@
       </div>
       <div class="col-md-4"></div>
     </div>
+  </div>
+
+  <div id="signUpForm" class="signUpForm">
+    test
   </div>
 </body>
 </html>
