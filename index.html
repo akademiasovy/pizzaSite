@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Title</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script>
+     function incrementAmount(element) {
+	count = parseInt(element.innerHTML);
+	element.innerHTML = count+1;
+     }
+  </script>
+</head>
+<body>
+  <div class="container mainContainer">
+    <div class="row header">
+      <div class="col-md-8 textHeader">
+	  <h2>Pizzasite</h2>
+      </div>
+      <div class="col-md-2 headerBtn">
+          <h3>Sign up</h3>
+      </div>
+      <div class="col-md-2 headerBtn">
+          <h3>Sign in</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <br><br><br>
+          <div style="width: 100%;">
+              <div class="row">
+                  <div class="col-md-4 pizzaContainer">
+		      <img src="./images/pepperoni.png">
+		      <br><br>
+            	      <p>Pepperoni pizza</p>
+                      <p>$5.99</p>
+	              <br>
+	              <div class="addToCartBtn" onclick="incrementAmount(pizza0amount);">
+                      	Add to cart <p id="pizza0amount">0</p>
+		      </div>
+                  </div>
+
+   		  <div class="col-md-4 pizzaContainer">
+		      <img src="./images/ham.png">
+		      <br><br>
+            	      <p>Ham pizza</p>
+                      <p>$5.49</p>
+	              <br>
+	              <div class="addToCartBtn" onclick="incrementAmount(pizza1amount);">
+                      	Add to cart <p id="pizza1amount">0</p>
+		      </div>
+                  </div>
+
+                  <div class="col-md-4 pizzaContainer">
+            	      <img src="./images/cheese.png">
+		      <br><br>
+            	      <p>Cheese pizza</p>
+                      <p>$4.99</p>
+	              <br>
+	              <div class="addToCartBtn" onclick="incrementAmount(pizza2amount);">
+                      	Add to cart <p id="pizza2amount">0</p>
+		      </div>
+                  </div>
+              </div><br>
+          </div>
+    </div>
+
+    <div class="row">
+      <br><br><br>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4 orderBtn">
+	Order
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+</body>
+</html>
