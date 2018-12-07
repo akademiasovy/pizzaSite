@@ -6,19 +6,20 @@
   <link rel="stylesheet" href="./css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="./js/javascript.js"></script>
+  <script src="./js/javascript.js">
+  signUp();</script>
 </head>
 <body>
   <div class="container mainContainer">
     <div class="row header">
       <div class="col-md-8 textHeader">
-	  <h2>Pizzasite</h2>
+	  <h2 onclick="signUp78()">Pizzasite</h2>
       </div>
       <div class="col-md-2 headerBtn" onclick="showSignUpForm()">
           <h3>Sign up</h3>
       </div>
       <div class="col-md-2 headerBtn">
-          <h3>Sign in</h3>
+          <h3>Log in</h3>
       </div>
     </div>
 
@@ -92,7 +93,13 @@
   </div>
 
   <div id="signUpForm" class="signUpForm">
-    test
-  </div>
+    <input id="signUpUsername" type="text" placeholder="Username"><br>
+    <input id="signUpPassword" type="password" placeholder="Password"><br>
+    <input id="signUpFirstName" type="text" placeholder="First Name"><br>
+    <input id="signUpLastName" type="text" placeholder="Last Name"><br>
+    <input id="signUpAddress" type="text" placeholder="Address"><br>
+    <input id="signUpEmail" type="text" placeholder="E-mail"><br>
+    <input id="signUpPhone" type="text" placeholder="Phone number"><br>
+    <button id="btnSignUp">Sign up</button>
 </body>
 </html>

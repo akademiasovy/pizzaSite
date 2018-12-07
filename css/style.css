@@ -136,6 +136,13 @@ body {
   margin: auto;
   border-radius: 25px;
   box-shadow: 0px 0px 40px black;
+  text-align: center;
+  line-height: 40px;
+}
+
+.signUpForm input {
+  text-align: center;
+  color: red;
 }
 
 .alert {
