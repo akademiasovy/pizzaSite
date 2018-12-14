@@ -18,14 +18,14 @@
       <div class="col-md-2 headerBtn" onclick="showSignUpForm()">
           <h3>Sign up</h3>
       </div>
-      <div class="col-md-2 headerBtn">
+      <div class="col-md-2 headerBtn" onclick="showLogInForm()">
           <h3>Log in</h3>
       </div>
     </div>
 
     <div class="row">
       <br><br><br>
-      <?php
+       <?php
         require 'config.php';
 
         $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -55,7 +55,7 @@
             $html=$html."<p>$".$row["price"]."</p>";
             $html=$html."<br>";
             $html=$html."<div class=\"addToCartBtn\" onclick=\"incrementAmount(pizza".$row["id"]."amount);\">";
-            $html=$html."Add to cart <p id=\"pizza".$row["id"]."amount\">0</p>";
+            $html=$html."Add to cart <p name=\"pizzaAmount\" id=\"pizza".$row["id"]."amount\">0</p>";
             $html=$html."</div>";
             $html=$html."</div>";
 
@@ -92,14 +92,28 @@
     </div>
   </div>
 
-  <div id="signUpForm" class="signUpForm">
-    <input id="signUpUsername" type="text" placeholder="Username"><br>
-    <input id="signUpPassword" type="password" placeholder="Password"><br>
-    <input id="signUpFirstName" type="text" placeholder="First Name"><br>
-    <input id="signUpLastName" type="text" placeholder="Last Name"><br>
-    <input id="signUpAddress" type="text" placeholder="Address"><br>
-    <input id="signUpEmail" type="text" placeholder="E-mail"><br>
-    <input id="signUpPhone" type="text" placeholder="Phone number"><br>
-    <button id="btnSignUp">Sign up</button>
+  <div id="signUpForm" class="popupForm">
+    <h1>Sign up</h1><br><br><br>
+    <input id="signUpUsername" type="text" placeholder="Username"><br><br>
+    <input id="signUpPassword" type="password" placeholder="Password"><br><br>
+    <input id="signUpFirstName" type="text" placeholder="First Name"><br><br>
+    <input id="signUpLastName" type="text" placeholder="Last Name"><br><br>
+    <input id="signUpAddress" type="text" placeholder="Address"><br><br>
+    <input id="signUpEmail" type="text" placeholder="E-mail"><br><br>
+    <input id="signUpPhone" type="text" placeholder="Phone number"><br><br><br><br>
+    <br>
+    <button id="btnSignUp" onclick="signUp()">Sign up</button><br><br>
+    <button id="btnCancelSignUp" onclick="hideSignUpForm()">Cancel</button>
+  </div>
+
+ <div id="logInForm" class="popupForm">
+    <h1>Log in</h1><br><br><br>
+    <input id="logInUsername" type="text" placeholder="Username"><br><br>
+    <input id="logInPassword" type="password" placeholder="Password"><br><br><br><br>
+    <br>
+    <button id="btnSignUp" onclick="logIn()">Log in</button><br><br>
+    <button id="btnCancelLogIn" onclick="hideLogInForm()">Cancel</button>
+ </div>
+
 </body>
 </html>

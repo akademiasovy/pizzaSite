@@ -51,10 +51,6 @@ body {
   background-color: #292929;
 }
 
-.pizzaBox {
-
-}
-
 .orderBtn {
   display: inline-block;
   height: 40px;
@@ -129,12 +125,13 @@ body {
   line-height: 35px;
 }
 
-.signUpForm {
+.popupForm {
   position: fixed;
+  float: right;
   margin: 0 auto;
   margin-top: -140px;
   padding: 20px;
-  /*background-image: linear-gradient(180deg, #DDDDDD, #888888);*/
+  /*background-image: linear-gradient(180deg, #DDDDDD, #000000);*/
   /*background-image: linear-gradient(180deg, #363451, #545454);*/
   background-color: #333333;
   color: white;
@@ -142,6 +139,7 @@ body {
   width: 400px;
   left: 50%;
   transform: translateX(-50%);
+  top: 40%;
   border-radius: 25px;
   box-shadow: 0px 0px 80px #555555;
   text-align: center;
@@ -149,7 +147,7 @@ body {
   vertical-align: middle;
 }
 
-.signUpForm h1 {
+.popupForm h1 {
   text-align: center;
   vertical-align: middle;
   color: white;
@@ -159,7 +157,7 @@ body {
   padding: 0;
 }
 
-.signUpForm input, button {
+.popupForm input, button {
   display: table-cell;
   background-color: #3D3D3D;
   color: #D2D2D2;
@@ -171,18 +169,18 @@ body {
   line-height: 40px;
 }
 
-.signUpForm input::placeholder {
+.popupForm input::placeholder {
   color: #909090;
   opacity: 1;
 }
 
-.signUpForm button {
+.popupForm button {
   color: white;
   box-shadow: 0px 0px 15px #151515;
   transition-duration: 0.3s;
 }
 
-.signUpForm button:hover {
+.popupForm button:hover {
   background-color: #313131;
 }
 
