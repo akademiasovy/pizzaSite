@@ -1,6 +1,11 @@
 * {
   font-family: Segoe UI Light, sans-serif;
   text-rendering: optimizeLegibility;
+  user-select: none;
+}
+
+*:focus {
+    outline: none;
 }
 
 body {
@@ -125,24 +130,60 @@ body {
 }
 
 .signUpForm {
-  position: absolute;
-  background-image: linear-gradient(180deg, #DDDDDD, #888888);
-  color: black;
+  position: fixed;
+  margin: 0 auto;
+  margin-top: -140px;
+  padding: 20px;
+  /*background-image: linear-gradient(180deg, #DDDDDD, #888888);*/
+  /*background-image: linear-gradient(180deg, #363451, #545454);*/
+  background-color: #333333;
+  color: white;
   display: none;
-  width: 50%;
-  height: 70%;
-  top: 15%;
-  left: 25%;
-  margin: auto;
+  width: 400px;
+  left: 50%;
+  transform: translateX(-50%);
   border-radius: 25px;
-  box-shadow: 0px 0px 40px black;
+  box-shadow: 0px 0px 80px #555555;
   text-align: center;
+  line-height: 8px;
+  vertical-align: middle;
+}
+
+.signUpForm h1 {
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+  left: 10%;
+  line-height: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+.signUpForm input, button {
+  display: table-cell;
+  background-color: #3D3D3D;
+  color: #D2D2D2;
+  border-radius: 10px;
+  border: none;
+  width: 90%;
+  text-align: center;
+  vertical-align: middle;
   line-height: 40px;
 }
 
-.signUpForm input {
-  text-align: center;
-  color: red;
+.signUpForm input::placeholder {
+  color: #909090;
+  opacity: 1;
+}
+
+.signUpForm button {
+  color: white;
+  box-shadow: 0px 0px 15px #151515;
+  transition-duration: 0.3s;
+}
+
+.signUpForm button:hover {
+  background-color: #313131;
 }
 
 .alert {
