@@ -1,11 +1,26 @@
 function incrementAmount(element) {
+  if (checkAmounts()) {
     count = parseInt(element.innerHTML);
     element.innerHTML = count + 1;
+  }
+}
+
+function checkAmounts() {
+  const max = 10;
+  pizzaAmounts = document.getElementsByName("pizzaAmount");
+  let totalAmount = 0;
+
+  for (i=0; i<pizzaAmounts.length; i++) {
+    totalAmount += parseInt(pizzaAmounts[i].innerHTML);
+  }
+
+  return totalAmount < max;
 }
 
 function showSignUpForm() {
     $("#signUpForm").css("display", "inline-block");
     hideLogInForm();
+    hideOrderForm();
 }
 
 function hideSignUpForm() {
@@ -122,6 +137,7 @@ function checkSignUpForm() {
 function showLogInForm() {
     $("#logInForm").css("display", "inline-block");
     hideSignUpForm();
+    hideOrderForm();
 }
 
 function hideLogInForm() {
@@ -171,7 +187,79 @@ function checkLogInForm() {
 }
 
 function order() {
-  pizzaAmounts = document.getElementsByName("pizzaAmount");
-  
+  if (checkOrderForm()) {
+    pizzaAmounts = document.getElementsByName("pizzaAmount");
 
+    let pizzas = [];
+
+    for (i=0; i<pizzaAmounts.length; i++) {
+      pizzaAmount = pizzaAmounts[i] ;
+      id = pizzaAmount.id.substr(
+      pizzaAmount.id.indexOf("a") + 1,
+      pizzaAmount.id.lastIndexOf("a")-pizzaAmount.id.indexOf("a")-1);
+
+      let pizza = new Object();
+      pizza.id = id;
+      pizza.amount = pizzaAmount.innerHTML;
+
+      pizzas.push(pizza);
+    }
+
+    data = new Object();
+    data.pizzas = pizzas;
+    data.firstName = $("#orderFirstName").val();
+    data.lastName = $("#orderLastName").val();
+    data.address = $("#orderAddress").val();
+    console.log(JSON.stringify(data));
+  }
+}
+
+function checkOrderForm() {
+  firstnameField = $("#orderFirstName");
+  lastnameField = $("#orderLastName");
+  addressField = $("#orderAddress");
+
+  correct = true;
+
+  //FIRST NAME CHECK
+  if (firstnameField.val().length <= 0) {
+    correct = false;
+    firstnameField.css("color","#DD1111");
+    firstnameField.css("border","1px solid #DD1111");
+  } else {
+    firstnameField.css("color","#D2D2D2");
+    firstnameField.css("border","none");
+  }
+
+  //LAST NAME CHECK
+  if (lastnameField.val().length <= 0) {
+    correct = false;
+    lastnameField.css("color","#DD1111");
+    lastnameField.css("border","1px solid #DD1111");
+  } else {
+    lastnameField.css("color","#D2D2D2");
+    lastnameField.css("border","none");
+  }
+
+  //ADDRESS CHECK
+  if (addressField.val().length <= 0) {
+    correct = false;
+    addressField.css("color","#DD1111");
+    addressField.css("border","1px solid #DD1111");
+  } else {
+    addressField.css("color","#D2D2D2");
+    addressField.css("border","none");
+  }
+
+  return correct;
+}
+
+function showOrderForm() {
+    $("#orderForm").css("display", "inline-block");
+    hideSignUpForm();
+    hideLogInForm();
+}
+
+function hideOrderForm() {
+    $("#orderForm").css("display", "none");
 }

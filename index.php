@@ -6,14 +6,17 @@
   <link rel="stylesheet" href="./css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="./js/javascript.js">
-  signUp();</script>
+  <script src="./js/javascript.js"></script>
+
+  <meta http-equiv="cache-control" content="no-cache"/>
+  <meta http-equiv="expires" content="0"/>
+  <meta http-equiv="pragma" content="no-cache"/>
 </head>
 <body>
   <div class="container mainContainer">
     <div class="row header">
       <div class="col-md-8 textHeader">
-	  <h2 onclick="signUp78()">Pizzasite</h2>
+	  <h2>Pizzasite</h2>
       </div>
       <div class="col-md-2 headerBtn" onclick="showSignUpForm()">
           <h3>Sign up</h3>
@@ -85,8 +88,8 @@
 
     <div class="row">
       <div class="col-md-4"></div>
-      <div class="col-md-4 orderBtn">
-	Order
+      <div class="col-md-4 orderBtn" onclick="showOrderForm()">
+	       Order
       </div>
       <div class="col-md-4"></div>
     </div>
@@ -113,6 +116,16 @@
     <br>
     <button id="btnSignUp" onclick="logIn()">Log in</button><br><br>
     <button id="btnCancelLogIn" onclick="hideLogInForm()">Cancel</button>
+ </div>
+
+ <div id="orderForm" class="popupForm">
+    <h1>Order details</h1><br><br><br>
+    <input id="orderFirstName" type="text" placeholder="First Name"><br><br>
+    <input id="orderLastName" type="text" placeholder="Last Name"><br><br>
+    <input id="orderAddress" type="text" placeholder="Address"><br><br><br><br>
+    <br>
+    <button id="btnSendOrder" onclick="order()">Order</button><br><br>
+    <button id="btnCancelOrder" onclick="hideOrderForm()">Cancel</button>
  </div>
 
 </body>
