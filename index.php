@@ -122,7 +122,8 @@
     <h1>Order details</h1><br><br><br>
     <input id="orderFirstName" type="text" placeholder="First Name"><br><br>
     <input id="orderLastName" type="text" placeholder="Last Name"><br><br>
-    <input id="orderAddress" type="text" placeholder="Address"><br><br><br><br>
+    <input id="orderAddress" type="text" placeholder="Address"><br><br>
+    <input id="orderPhone" type="text" placeholder="Phone Number"><br><br><br><br>
     <br>
     <button id="btnSendOrder" onclick="order()">Order</button><br><br>
     <button id="btnCancelOrder" onclick="hideOrderForm()">Cancel</button>

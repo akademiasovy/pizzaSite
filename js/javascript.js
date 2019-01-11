@@ -64,8 +64,8 @@ function checkSignUpForm() {
   //USERNAME CHECK
   if (usernameField.val().length <= 0) {
     correct = false;
-    usernameField.css("color","#DD1111");
-    usernameField.css("border","1px solid #DD1111");
+    usernameField.css("color","#ff3f3f");
+    usernameField.css("border","1px solid #ff3f3f");
   } else {
     usernameField.css("color","#D2D2D2");
     usernameField.css("border","none");
@@ -74,8 +74,8 @@ function checkSignUpForm() {
   //PASSWORD CHECK
   if (passwordField.val().length < 8) {
     correct = false;
-    passwordField.css("color","#DD1111");
-    passwordField.css("border","1px solid #DD1111");
+    passwordField.css("color","#ff3f3f");
+    passwordField.css("border","1px solid #ff3f3f");
   } else {
     passwordField.css("color","#D2D2D2");
     passwordField.css("border","none");
@@ -84,8 +84,8 @@ function checkSignUpForm() {
   //FIRST NAME CHECK
   if (firstnameField.val().length <= 0) {
     correct = false;
-    firstnameField.css("color","#DD1111");
-    firstnameField.css("border","1px solid #DD1111");
+    firstnameField.css("color","#ff3f3f");
+    firstnameField.css("border","1px solid #ff3f3f");
   } else {
     firstnameField.css("color","#D2D2D2");
     firstnameField.css("border","none");
@@ -94,8 +94,8 @@ function checkSignUpForm() {
   //LAST NAME CHECK
   if (lastnameField.val().length <= 0) {
     correct = false;
-    lastnameField.css("color","#DD1111");
-    lastnameField.css("border","1px solid #DD1111");
+    lastnameField.css("color","#ff3f3f");
+    lastnameField.css("border","1px solid #ff3f3f");
   } else {
     lastnameField.css("color","#D2D2D2");
     lastnameField.css("border","none");
@@ -104,8 +104,8 @@ function checkSignUpForm() {
   //ADDRESS CHECK
   if (addressField.val().length <= 0) {
     correct = false;
-    addressField.css("color","#DD1111");
-    addressField.css("border","1px solid #DD1111");
+    addressField.css("color","#ff3f3f");
+    addressField.css("border","1px solid #ff3f3f");
   } else {
     addressField.css("color","#D2D2D2");
     addressField.css("border","none");
@@ -114,8 +114,8 @@ function checkSignUpForm() {
   //EMAIL CHECK
   if (emailField.val().length <= 0 || !emailField.val().match("[^@]+@(([^\.]+\..+)|localhost(:\d+)?)")) {
     correct = false;
-    emailField.css("color","#DD1111");
-    emailField.css("border","1px solid #DD1111");
+    emailField.css("color","#ff3f3f");
+    emailField.css("border","1px solid #ff3f3f");
   } else {
     emailField.css("color","#D2D2D2");
     emailField.css("border","none");
@@ -124,8 +124,8 @@ function checkSignUpForm() {
   //PHONE NUMBER CHECK
   if (phoneField.val().length <= 0 || !phoneField.val().match("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$")) {
     correct = false;
-    phoneField.css("color","#DD1111");
-    phoneField.css("border","1px solid #DD1111");
+    phoneField.css("color","#ff3f3f");
+    phoneField.css("border","1px solid #ff3f3f");
   } else {
     phoneField.css("color","#D2D2D2");
     phoneField.css("border","none");
@@ -166,8 +166,8 @@ function checkLogInForm() {
   //USERNAME CHECK
   if (usernameField.val().length <= 0) {
     correct = false;
-    usernameField.css("color","#DD1111");
-    usernameField.css("border","1px solid #DD1111");
+    usernameField.css("color","#ff3f3f");
+    usernameField.css("border","1px solid #ff3f3f");
   } else {
     usernameField.css("color","#D2D2D2");
     usernameField.css("border","none");
@@ -176,8 +176,8 @@ function checkLogInForm() {
   //PASSWORD CHECK
   if (passwordField.val().length < 8) {
     correct = false;
-    passwordField.css("color","#DD1111");
-    passwordField.css("border","1px solid #DD1111");
+    passwordField.css("color","#ff3f3f");
+    passwordField.css("border","1px solid #ff3f3f");
   } else {
     passwordField.css("color","#D2D2D2");
     passwordField.css("border","none");
@@ -210,6 +210,7 @@ function order() {
     data.firstName = $("#orderFirstName").val();
     data.lastName = $("#orderLastName").val();
     data.address = $("#orderAddress").val();
+    data.phone = $("#orderPhone").val();
     console.log(JSON.stringify(data));
   }
 }
@@ -218,14 +219,14 @@ function checkOrderForm() {
   firstnameField = $("#orderFirstName");
   lastnameField = $("#orderLastName");
   addressField = $("#orderAddress");
-
+  phoneField = $("#orderPhone");
   correct = true;
 
   //FIRST NAME CHECK
   if (firstnameField.val().length <= 0) {
     correct = false;
-    firstnameField.css("color","#DD1111");
-    firstnameField.css("border","1px solid #DD1111");
+    firstnameField.css("color","#ff3f3f");
+    firstnameField.css("border","1px solid #ff3f3f");
   } else {
     firstnameField.css("color","#D2D2D2");
     firstnameField.css("border","none");
@@ -234,8 +235,8 @@ function checkOrderForm() {
   //LAST NAME CHECK
   if (lastnameField.val().length <= 0) {
     correct = false;
-    lastnameField.css("color","#DD1111");
-    lastnameField.css("border","1px solid #DD1111");
+    lastnameField.css("color","#ff3f3f");
+    lastnameField.css("border","1px solid #ff3f3f");
   } else {
     lastnameField.css("color","#D2D2D2");
     lastnameField.css("border","none");
@@ -244,11 +245,21 @@ function checkOrderForm() {
   //ADDRESS CHECK
   if (addressField.val().length <= 0) {
     correct = false;
-    addressField.css("color","#DD1111");
-    addressField.css("border","1px solid #DD1111");
+    addressField.css("color","#ff3f3f");
+    addressField.css("border","1px solid #ff3f3f");
   } else {
     addressField.css("color","#D2D2D2");
     addressField.css("border","none");
+  }
+
+  //PHONE NUMBER CHECK
+  if (phoneField.val().length <= 0 || !phoneField.val().match("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$")) {
+    correct = false;
+    phoneField.css("color","#ff3f3f");
+    phoneField.css("border","1px solid #ff3f3f");
+  } else {
+    phoneField.css("color","#D2D2D2");
+    phoneField.css("border","none");
   }
 
   return correct;
