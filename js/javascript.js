@@ -46,7 +46,25 @@ function signUp() {
       data.email=email;
       data.phone=phone;
       let dataStr=JSON.stringify(data);
-      console.log(dataStr);
+      console.log("dwdwd "+dataStr);
+
+     /*$.post("http://localhost:3003/signup", dataStr, null, "json")
+      .done(function( data ) {
+        alert( "Data Loaded: " + data );
+      });*/
+
+    $.ajax({
+      url: 'http://localhost:3003/signup',
+      type: 'post',
+      data: dataStr,
+      headers: {
+          'content-type':'application/json'
+      },
+      dataType: 'json',
+      success: function (data) {
+          console.info(data);
+      }
+    });
     }
 }
 
