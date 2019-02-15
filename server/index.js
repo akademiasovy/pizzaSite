@@ -21,7 +21,8 @@ app.post('/signup', function (req, res) {
    //console.log("data: "+JSON.stringify(data));
    if (data.username.length > 0 && data.password.length > 0 && data.firstname.length > 0 && data.lastname.length > 0
        && data.address.length > 0 && data.email.length > 0 && data.phone.length > 0) {
-         if (!database.checkUser(data.username)) {
+         console.log("Result: "+database.checkUser(data.username));
+         if (/*!*/database.checkUser(data.username)) {
            console.log('check: '+database.checkUser(data.username));
            database.newUser(data);
            res.status(200).send();
@@ -30,6 +31,22 @@ app.post('/signup', function (req, res) {
          }
    }
   res.status(400).send();
-})
+});
+
+app.post('/login', function (req, res) {
+   console.log("got a request");
+   data = req.body;
+   //console.log("data: "+JSON.stringify(data));
+   if (data.username.length > 0 && data.password.length > 0) {
+         if (database.authenticate(data.username) != undefined) {
+           console.log('token: '+database.checkUser(data.username));
+           res.body = token;
+           res.status(200).send();
+         } else {
+           res.status(309).send();
+         }
+   }
+  res.status(400).send();
+});
 
 app.listen(3003);
