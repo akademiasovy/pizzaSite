@@ -63,6 +63,9 @@ function signUp() {
       dataType: 'json',
       success: function (data) {
           console.info(data);
+      },
+      error: function (data) {
+          $('#signUpAlert').html(data.status);
       }
     });
     }

@@ -103,7 +103,8 @@
     <input id="signUpLastName" type="text" placeholder="Last Name"><br><br>
     <input id="signUpAddress" type="text" placeholder="Address"><br><br>
     <input id="signUpEmail" type="text" placeholder="E-mail"><br><br>
-    <input id="signUpPhone" type="text" placeholder="Phone number"><br><br><br><br>
+    <input id="signUpPhone" type="text" placeholder="Phone number"><br><br>
+    <div id="signUpAlert" class="alert"></div><br><br>
     <br>
     <button id="btnSignUp" onclick="signUp()">Sign up</button><br><br>
     <button id="btnCancelSignUp" onclick="hideSignUpForm()">Cancel</button>
