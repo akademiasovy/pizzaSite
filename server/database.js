@@ -36,52 +36,47 @@ var newUser = function (data) {
       if (err) throw err;
       console.log("New user created!");
       con.end();
+      return;
     });
   });
   //con.end();
 };
 
-var checkUser = function(username) {
+var checkUser = function(username, callback) {
   var con = connect();
 
   var sql = "SELECT * FROM login WHERE user='"+username+"'";
 
-  return Boolean(con.query(sql, function (err, result) {
+  con.query(sql, function (err, result) {
     //console.log(result.length);
     if (err) throw err;
     con.end();
-    if (result.length > 0) {
-      return true;
-    } else {
-      return false;
-   }
- }));
-  //return check;
+    callback(result.length > 0);
+    return;
+ });
 }
 
 var tokens = [];
 
-var authenticate = function(username, password) {
+var authenticate = function(username, password, callback) {
   var con = connect();
 
   const secret = 'abcdefg';
   const passwordHash = crypto.createHmac('sha512', secret).update(data.password).digest('hex');
   var sql = "SELECT * FROM login WHERE user='"+username+"' and passhash='"+passwordHash+"'";
 
-  return con.query(sql, function (err, result) {
-    var token = undefined;
-
+  var token = undefined;
+  con.query(sql, function (err, result) {
     if (result.length > 0) {
-      try {
-        tokens.forEach(function(savedToken) {
-          if (savedToken.username == username) {
-            token = savedToken.data;
-            throw new BreakException();
-          }
-        });
-      } catch(e) {
-
-      }
+      console.log('found user')
+      tokens.forEach(function(savedToken) {
+        if (savedToken.username == username) {
+          token = savedToken.data;
+          callback(token);
+          con.end();
+          return;
+        }
+      });
 
       if (token == undefined) {
         token = '';
@@ -94,12 +89,14 @@ var authenticate = function(username, password) {
         //tokens[tokens.length] = JSON.stringify(tokenObject);
         tokens=[...tokens, tokenObject];
         console.log(tokens);
+        callback(token);
+        con.end();
+        return;
       }
-
-    } else {
-      return false;
     }
+    callback(null);
  });
+ con.end();
 };
 
 module.exports = {newUser, checkUser, authenticate};

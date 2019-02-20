@@ -21,16 +21,17 @@ app.post('/signup', function (req, res) {
    //console.log("data: "+JSON.stringify(data));
    if (data.username.length > 0 && data.password.length > 0 && data.firstname.length > 0 && data.lastname.length > 0
        && data.address.length > 0 && data.email.length > 0 && data.phone.length > 0) {
-         console.log("Result: "+database.checkUser(data.username));
-         if (/*!*/database.checkUser(data.username)) {
-           console.log('check: '+database.checkUser(data.username));
-           database.newUser(data);
-           res.status(200).send();
-         } else {
-           res.status(309).send();
-         }
+         database.checkUser(data.username, function(userExists) {
+           if (!userExists) {
+              database.newUser(data);
+              res.status(200).send();
+           } else {
+              res.status(409).send();
+           }
+         });
+   } else {
+     res.status(400).send();
    }
-  res.status(400).send();
 });
 
 app.post('/login', function (req, res) {
@@ -38,15 +39,20 @@ app.post('/login', function (req, res) {
    data = req.body;
    //console.log("data: "+JSON.stringify(data));
    if (data.username.length > 0 && data.password.length > 0) {
-         if (database.authenticate(data.username) != undefined) {
-           console.log('token: '+database.checkUser(data.username));
-           res.body = token;
-           res.status(200).send();
-         } else {
-           res.status(309).send();
-         }
+      database.authenticate(data.username,data.password,function(token) {
+        console.log("idk123: "+token);
+        if (token!==null) {
+          tokenObject = new Object();
+          tokenObject.username = data.username;
+          tokenObject.token = token;
+          res.status(200).send(JSON.stringify(tokenObject));
+        } else {
+          res.status(401).send();
+        }
+      });
+   } else {
+     res.status(400).send();
    }
-  res.status(400).send();
 });
 
 app.listen(3003);
