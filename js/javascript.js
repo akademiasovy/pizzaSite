@@ -18,6 +18,7 @@ function checkAmounts() {
 }
 
 function showSignUpForm() {
+    if ($("#orderSentPopup").css("display") != "none") return;
     $("#signUpForm").css("display", "inline-block");
     hideLogInForm();
     hideOrderForm();
@@ -62,10 +63,21 @@ function signUp() {
       },
       dataType: 'json',
       success: function (data) {
-          console.info(data);
+          $('#signUpAlert').html("");
+          location.reload();
       },
       error: function (data) {
-          $('#signUpAlert').html(data.status);
+          statusCode = data.status;
+          if (statusCode == 200) {
+            $('#signUpAlert').html("");
+            location.reload();
+          } else if (statusCode == 409) {
+            $('#signUpAlert').html("Username is already taken!");
+          } else if (statusCode == 400) {
+            $('#signUpAlert').html("Invalid data!");
+          } else {
+            $('#signUpAlert').html("Unknown error: "+statusCode+"!");
+          }
       }
     });
     }
@@ -156,6 +168,9 @@ function checkSignUpForm() {
 }
 
 function showLogInForm() {
+  if ($("#orderSentPopup").css("display") != "none") return;
+  var retrievedObject = sessionStorage.getItem('token');
+  if (retrievedObject != undefined && retrievedObject != null) return;
     $("#logInForm").css("display", "inline-block");
     hideSignUpForm();
     hideOrderForm();
@@ -174,7 +189,34 @@ function logIn() {
     data.username=username;
     data.password=password;
     let dataStr = JSON.stringify(data);
-    console.log(dataStr);
+
+    $.ajax({
+      url: 'http://localhost:3003/login',
+      type: 'post',
+      data: dataStr,
+      headers: {
+          'content-type':'application/json'
+      },
+      dataType: 'json',
+      success: function (data) {
+          $('#logInAlert').html("");
+          sessionStorage.setItem('token', data.token);
+          hideLogInForm();
+          hideOrderForm();
+      },
+      error: function (data) {
+          statusCode = data.status;
+          if (statusCode == 200) {
+            $('#logInAlert').html("");
+          } else if (statusCode == 401) {
+            $('#logInAlert').html("Access denied!");
+          } else if (statusCode == 400) {
+            $('#logInAlert').html("Invalid data!");
+          } else {
+            $('#signUpAlert').html("Unknown error: "+statusCode+"!");
+          }
+      }
+    });
   }
 }
 
@@ -208,7 +250,8 @@ function checkLogInForm() {
 }
 
 function order() {
-  if (checkOrderForm()) {
+  var retrievedObject = sessionStorage.getItem('token');
+  if ((retrievedObject != undefined && retrievedObject != null) || checkOrderForm()) {
     pizzaAmounts = document.getElementsByName("pizzaAmount");
 
     let pizzas = [];
@@ -228,11 +271,36 @@ function order() {
 
     data = new Object();
     data.pizzas = pizzas;
-    data.firstName = $("#orderFirstName").val();
-    data.lastName = $("#orderLastName").val();
-    data.address = $("#orderAddress").val();
-    data.phone = $("#orderPhone").val();
-    console.log(JSON.stringify(data));
+    if (retrievedObject == null || retrievedObject == undefined) {
+      data.firstName = $("#orderFirstName").val();
+      data.lastName = $("#orderLastName").val();
+      data.address = $("#orderAddress").val();
+      data.phone = $("#orderPhone").val();
+    } else {
+      data.token = retrievedObject;
+    }
+
+    dataStr = JSON.stringify(data);
+    console.log(dataStr);
+
+    $.ajax({
+      url: 'http://localhost:3003/order',
+      type: 'post',
+      data: dataStr,
+      headers: {
+          'content-type':'application/json'
+      },
+      dataType: 'json',
+      error: function (data) {
+          statusCode = data.status;
+          if (statusCode == 200) {
+            showOrderSentPopup();
+            $('#orderAlert').html("");
+          } else {
+            $('#orderAlert').html("An error occured!");
+          }
+      }
+    });
   }
 }
 
@@ -287,6 +355,12 @@ function checkOrderForm() {
 }
 
 function showOrderForm() {
+    if ($("#orderSentPopup").css("display") != "none") return;
+    var retrievedObject = sessionStorage.getItem('token');
+    if (retrievedObject != undefined && retrievedObject != null) {
+      order();
+      return;
+    }
     $("#orderForm").css("display", "inline-block");
     hideSignUpForm();
     hideLogInForm();
@@ -294,4 +368,20 @@ function showOrderForm() {
 
 function hideOrderForm() {
     $("#orderForm").css("display", "none");
+}
+
+function showOrderSentPopup() {
+    $("#orderSentPopup").css("display", "inline-block");
+    hideSignUpForm();
+    hideLogInForm();
+    hideOrderForm();
+
+    window.setTimeout(function(){
+      hideOrderSentPopup();
+      location.reload();
+    }, 5000);
+}
+
+function hideOrderSentPopup() {
+    $("#orderSentPopup").css("display", "none");
 }

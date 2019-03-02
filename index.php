@@ -103,9 +103,8 @@
     <input id="signUpLastName" type="text" placeholder="Last Name"><br><br>
     <input id="signUpAddress" type="text" placeholder="Address"><br><br>
     <input id="signUpEmail" type="text" placeholder="E-mail"><br><br>
-    <input id="signUpPhone" type="text" placeholder="Phone number"><br><br>
+    <input id="signUpPhone" type="text" placeholder="Phone number"><br>
     <div id="signUpAlert" class="alert"></div><br><br>
-    <br>
     <button id="btnSignUp" onclick="signUp()">Sign up</button><br><br>
     <button id="btnCancelSignUp" onclick="hideSignUpForm()">Cancel</button>
   </div>
@@ -113,8 +112,8 @@
  <div id="logInForm" class="popupForm">
     <h1>Log in</h1><br><br><br>
     <input id="logInUsername" type="text" placeholder="Username"><br><br>
-    <input id="logInPassword" type="password" placeholder="Password"><br><br><br><br>
-    <br>
+    <input id="logInPassword" type="password" placeholder="Password"><br>
+    <div id="logInAlert" class="alert"></div><br><br>
     <button id="btnSignUp" onclick="logIn()">Log in</button><br><br>
     <button id="btnCancelLogIn" onclick="hideLogInForm()">Cancel</button>
  </div>
@@ -128,6 +127,10 @@
     <br>
     <button id="btnSendOrder" onclick="order()">Order</button><br><br>
     <button id="btnCancelOrder" onclick="hideOrderForm()">Cancel</button>
+ </div>
+
+ <div id="orderSentPopup" class="popupForm">
+    <h2 style="color: #00DD00">Order sent!</h2>
  </div>
 
 </body>
