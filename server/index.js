@@ -55,4 +55,27 @@ app.post('/login', function (req, res) {
    }
 });
 
+app.post('/order', function (req, res) {
+   /*console.log("got a request");
+   data = req.body;
+   //console.log("data: "+JSON.stringify(data));
+   if (data.username.length > 0 && data.password.length > 0) {
+      database.authenticate(data.username,data.password,function(token) {
+        console.log("idk123: "+token);
+        if (token!==null) {
+          tokenObject = new Object();
+          tokenObject.username = data.username;
+          tokenObject.token = token;
+          res.status(200).send(JSON.stringify(tokenObject));
+        } else {
+          res.status(401).send();
+        }
+      });
+   } else {
+     res.status(400).send();
+   }*/
+   console.log(req.body);
+   res.status(200).send();
+});
+
 app.listen(3003);

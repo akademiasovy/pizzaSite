@@ -90,7 +90,6 @@ var authenticate = function(username, password, callback) {
         tokens=[...tokens, tokenObject];
         console.log(tokens);
         callback(token);
-        con.end();
         return;
       }
     }
