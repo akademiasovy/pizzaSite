@@ -73,7 +73,7 @@ var authenticate = function(username, password, callback) {
         if (savedToken.username == username) {
           token = savedToken.data;
           callback(token);
-          con.end();
+          //con.end();
           return;
         }
       });
@@ -98,4 +98,14 @@ var authenticate = function(username, password, callback) {
  con.end();
 };
 
-module.exports = {newUser, checkUser, authenticate};
+var order = function(firstname, lastname, address, phone) {
+  var con = connect();
+
+  var query = "INSERT INTO orders ("+firsname+", "+lastname+", "+address+", "+phone+")";
+  con.query(sql, function (err, result) {
+
+  });
+  con.end();
+});
+
+module.exports = {newUser, checkUser, authenticate, order};

@@ -74,8 +74,11 @@ app.post('/order', function (req, res) {
    } else {
      res.status(400).send();
    }*/
-   console.log(req.body);
-   res.status(200).send();
+   data = req.body;
+   if (data.firstname.length > 0 && data.lastname.length > 0 && data.address.length > 0 && data.phone.length > 0) {
+      databse.order(data.firstname, data.lastname, data.address, data.phone);
+   }
+   res.status(400).send();
 });
 
 app.listen(3003);
