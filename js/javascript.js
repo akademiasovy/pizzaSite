@@ -1,3 +1,15 @@
+$(document).ready(function(){
+  showLogoutButton();
+});
+
+function showLogoutButton() {
+  var retrievedObject = sessionStorage.getItem('username');
+  if (retrievedObject != undefined && retrievedObject != null) {
+    $("#signUpButtonHeader").html(retrievedObject);
+    $("#logInButtonHeader").html("Log out");
+  }
+}
+
 function incrementAmount(element) {
   if (checkAmounts()) {
     count = parseInt(element.innerHTML);
@@ -18,10 +30,12 @@ function checkAmounts() {
 }
 
 function showSignUpForm() {
-    if ($("#orderSentPopup").css("display") != "none") return;
-    $("#signUpForm").css("display", "inline-block");
-    hideLogInForm();
-    hideOrderForm();
+  var retrievedObject = sessionStorage.getItem('token');
+  if (retrievedObject != undefined && retrievedObject != null) return;
+  if ($("#orderSentPopup").css("display") != "none") return;
+  $("#signUpForm").css("display", "inline-block");
+  hideLogInForm();
+  hideOrderForm();
 }
 
 function hideSignUpForm() {
@@ -170,10 +184,14 @@ function checkSignUpForm() {
 function showLogInForm() {
   if ($("#orderSentPopup").css("display") != "none") return;
   var retrievedObject = sessionStorage.getItem('token');
-  if (retrievedObject != undefined && retrievedObject != null) return;
-    $("#logInForm").css("display", "inline-block");
-    hideSignUpForm();
-    hideOrderForm();
+  if (retrievedObject != undefined && retrievedObject != null) {
+    sessionStorage.clear();
+    location.reload();
+    return;
+  }
+  $("#logInForm").css("display", "inline-block");
+  hideSignUpForm();
+  hideOrderForm();
 }
 
 function hideLogInForm() {
@@ -200,9 +218,11 @@ function logIn() {
       dataType: 'json',
       success: function (data) {
           $('#logInAlert').html("");
+          sessionStorage.setItem('username', data.username);
           sessionStorage.setItem('token', data.token);
           hideLogInForm();
           hideOrderForm();
+          showLogoutButton();
       },
       error: function (data) {
           statusCode = data.status;
@@ -256,8 +276,10 @@ function order() {
 
     let pizzas = [];
 
+    check = false;
     for (i=0; i<pizzaAmounts.length; i++) {
       pizzaAmount = pizzaAmounts[i] ;
+      if (pizzaAmount.innerHTML > 0) check = true;
       id = pizzaAmount.id.substr(
       pizzaAmount.id.indexOf("a") + 1,
       pizzaAmount.id.lastIndexOf("a")-pizzaAmount.id.indexOf("a")-1);
@@ -268,6 +290,8 @@ function order() {
 
       pizzas.push(pizza);
     }
+    console.log("check: "+check);
+    if (!check) return;
 
     data = new Object();
     data.pizzas = pizzas;

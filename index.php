@@ -19,10 +19,10 @@
 	  <h2>Pizzasite</h2>
       </div>
       <div class="col-md-2 headerBtn" onclick="showSignUpForm()">
-          <h3>Sign up</h3>
+          <h3 id="signUpButtonHeader">Sign up</h3>
       </div>
       <div class="col-md-2 headerBtn" onclick="showLogInForm()">
-          <h3>Log in</h3>
+          <h3 id="logInButtonHeader">Log in</h3>
       </div>
     </div>
 
