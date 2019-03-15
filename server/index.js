@@ -56,29 +56,25 @@ app.post('/login', function (req, res) {
 });
 
 app.post('/order', function (req, res) {
-   /*console.log("got a request");
    data = req.body;
-   //console.log("data: "+JSON.stringify(data));
-   if (data.username.length > 0 && data.password.length > 0) {
-      database.authenticate(data.username,data.password,function(token) {
-        console.log("idk123: "+token);
-        if (token!==null) {
-          tokenObject = new Object();
-          tokenObject.username = data.username;
-          tokenObject.token = token;
-          res.status(200).send(JSON.stringify(tokenObject));
+   if (data.hasOwnProperty("token")) {
+      database.getLoggedInUser(data.token, function(user) {
+        console.log("user: "+user);
+        if (user != null && user != undefined) {
+          database.order(user.firstname, user.lastname, user.address, user.phone, JSON.stringify(data.pizzas));
+          console.log("tusa massss dostat");
+          res.status(200).send();
         } else {
+          console.log("tusa nema dostat");
           res.status(401).send();
         }
       });
+   } else if (data.firstname.length > 0 && data.lastname.length > 0 && data.address.length > 0 && data.phone.length > 0  && data.pizzas.length > 0) {
+      database.order(data.firstname, data.lastname, data.address, data.phone, JSON.stringify(data.pizzas));
+      res.status(200).send();
    } else {
-     res.status(400).send();
-   }*/
-   data = req.body;
-   if (data.firstname.length > 0 && data.lastname.length > 0 && data.address.length > 0 && data.phone.length > 0) {
-      databse.order(data.firstname, data.lastname, data.address, data.phone);
+      res.status(400).send();
    }
-   res.status(400).send();
 });
 
 app.listen(3003);

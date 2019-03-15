@@ -98,14 +98,47 @@ var authenticate = function(username, password, callback) {
  con.end();
 };
 
-var order = function(firstname, lastname, address, phone) {
+var getLoggedInUser = function(token, callback) {
+  var foundUser = false;
   var con = connect();
 
-  var query = "INSERT INTO orders ("+firsname+", "+lastname+", "+address+", "+phone+")";
-  con.query(sql, function (err, result) {
+  tokens.forEach(function(savedToken) {
+    if (savedToken.data === token) {
+         //INNER JOIN login ON user.loginid = login.id WHERE login.user LIKE '"+token.username+"'
+      //var sql = "SELECT user.firstname, user.lastname, user.email, user.phone, user.address, user.loginid FROM user, login WHERE user.loginid = login.id AND login.user LIKE '"+token.username+"'";
+      var sql = "SELECT user.firstname, user.lastname, user.email, user.phone, user.address FROM user INNER JOIN login ON user.loginid = login.id WHERE login.user='"+savedToken.username+"'"
+      con.query(sql, function (err, result) {
+          if (err) throw err;
+          console.log("result="+result);
+          if (result != null && result != undefined && result.length > 0) {
+            console.log("got result!!!!!!");
+            foundUser = true;
+            user = new Object();
+            user.firstname = result[0].firstname;
+            user.lastname = result[0].lastname;
+            user.email = result[0].email;
+            user.phone = result[0].phone;
+            user.address = result[0].address;
+            user.token = token;
+            callback(user);
+            return;
+          }
+      });
+    }
+  });
+  //if (!foundUser) callback(null);
+  con.end();
+};
 
+var order = function(firstname, lastname, address, phone, pizzas) {
+  var con = connect();
+
+  var sql = "INSERT INTO orders (firstname, lastname, address, phone, pizzas) VALUES ('"+firstname+"', '"+lastname+"', '"+address+"', '"+phone+"', '"+pizzas+"')";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    console.log("order sent!");
   });
   con.end();
-});
+};
 
-module.exports = {newUser, checkUser, authenticate, order};
+module.exports = {newUser, checkUser, authenticate, getLoggedInUser, order};
