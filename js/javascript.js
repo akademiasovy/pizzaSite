@@ -296,8 +296,8 @@ function order() {
     data = new Object();
     data.pizzas = pizzas;
     if (retrievedObject == null || retrievedObject == undefined) {
-      data.firstName = $("#orderFirstName").val();
-      data.lastName = $("#orderLastName").val();
+      data.firstname = $("#orderFirstName").val();
+      data.lastname = $("#orderLastName").val();
       data.address = $("#orderAddress").val();
       data.phone = $("#orderPhone").val();
     } else {
