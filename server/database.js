@@ -68,7 +68,7 @@ var authenticate = function(username, password, callback) {
   var token = undefined;
   con.query(sql, function (err, result) {
     if (result.length > 0) {
-      console.log('found user')
+      //console.log('found user')
       tokens.forEach(function(savedToken) {
         if (savedToken.username == username) {
           token = savedToken.data;
@@ -88,7 +88,7 @@ var authenticate = function(username, password, callback) {
         tokenObject.data = token;
         //tokens[tokens.length] = JSON.stringify(tokenObject);
         tokens=[...tokens, tokenObject];
-        console.log(tokens);
+        //console.log(tokens);
         callback(token);
         return;
       }
@@ -109,9 +109,9 @@ var getLoggedInUser = function(token, callback) {
       var sql = "SELECT user.firstname, user.lastname, user.email, user.phone, user.address FROM user INNER JOIN login ON user.loginid = login.id WHERE login.user='"+savedToken.username+"'"
       con.query(sql, function (err, result) {
           if (err) throw err;
-          console.log("result="+result);
+          //console.log("result="+result);
           if (result != null && result != undefined && result.length > 0) {
-            console.log("got result!!!!!!");
+            //console.log("got result!!!!!!");
             foundUser = true;
             user = new Object();
             user.firstname = result[0].firstname;

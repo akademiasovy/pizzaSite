@@ -1,4 +1,9 @@
 var express = require('express');
+var Recaptcha = require('recaptcha-verify');
+var recaptcha = new Recaptcha({
+    secret: '6Lfc6poUAAAAANgpsKTNAQExViOqWoCrOcmbstqZ',
+    verbose: true
+});
 var database = require('./database');
 var app = express();
 app.use(function(req, res, next) {
@@ -16,6 +21,11 @@ app.post('/test', function (req, res) {
 
 
 app.post('/signup', function (req, res) {
+  checkCaptcha(req, function(captchaCheck) {
+    if (!captchaCheck) {
+      res.status(401).send();
+      return;
+    }
    console.log("got a request");
    data = req.body;
    //console.log("data: "+JSON.stringify(data));
@@ -32,31 +42,44 @@ app.post('/signup', function (req, res) {
    } else {
      res.status(400).send();
    }
+ });
 });
 
 app.post('/login', function (req, res) {
-   console.log("got a request");
-   data = req.body;
-   //console.log("data: "+JSON.stringify(data));
-   if (data.username.length > 0 && data.password.length > 0) {
-      database.authenticate(data.username,data.password,function(token) {
-        console.log("idk123: "+token);
-        if (token!==null) {
-          tokenObject = new Object();
-          tokenObject.username = data.username;
-          tokenObject.token = token;
-          res.status(200).send(JSON.stringify(tokenObject));
-        } else {
-          res.status(401).send();
-        }
-      });
-   } else {
-     res.status(400).send();
-   }
+   checkCaptcha(req, function(captchaCheck) {
+     if (!captchaCheck) {
+       res.status(401).send();
+       return;
+     }
+     console.log("got a request");
+     data = req.body;
+     console.log("recaptcha: "+data.captcha);
+     //console.log("data: "+JSON.stringify(data));
+     if (data.username.length > 0 && data.password.length > 0) {
+        database.authenticate(data.username,data.password,function(token) {
+          console.log("idk123: "+token);
+          if (token!==null) {
+            tokenObject = new Object();
+            tokenObject.username = data.username;
+            tokenObject.token = token;
+            res.status(200).send(JSON.stringify(tokenObject));
+          } else {
+            res.status(401).send();
+          }
+        });
+     } else {
+       res.status(400).send();
+     }
+   });
 });
 
 app.post('/order', function (req, res) {
-   data = req.body;
+  data = req.body;
+  checkCaptcha(req, function(captchaCheck) {
+    if (!data.hasOwnProperty("token") && !captchaCheck) {
+      res.status(401).send();
+      return;
+    }
    if (data.hasOwnProperty("token")) {
       database.getLoggedInUser(data.token, function(user) {
         console.log("user: "+user);
@@ -75,6 +98,25 @@ app.post('/order', function (req, res) {
    } else {
       res.status(400).send();
    }
+ });
 });
+
+function checkCaptcha(req, callback) {
+  console.log("captcha failed");
+  data = req.body;
+  recaptcha.checkResponse(data.captcha, function(error, response){
+        if(error){
+          callback(false);
+          return;
+        }
+        if(response.success){
+          callback(true);
+          return;
+        }else{
+          callback(false);
+          return;
+        }
+    });
+}
 
 app.listen(3003);
