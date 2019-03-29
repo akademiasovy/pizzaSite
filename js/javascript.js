@@ -2,6 +2,12 @@ $(document).ready(function(){
   showLogoutButton();
 });
 
+grecaptcha.ready(function() {
+  grecaptcha.execute('6Lfc6poUAAAAAJCbj13WU_XZIMkuC8K12yR_RiwH', {action: 'homepage'}).then(function(token) {
+    $("#g-recaptcha-response").val(token);
+  });
+});
+
 function showLogoutButton() {
   var retrievedObject = sessionStorage.getItem('username');
   if (retrievedObject != undefined && retrievedObject != null) {
@@ -60,6 +66,7 @@ function signUp() {
       data.address=address;
       data.email=email;
       data.phone=phone;
+      data.captcha = $("#g-recaptcha-response").val();
       let dataStr=JSON.stringify(data);
       console.log("dwdwd "+dataStr);
 
@@ -206,7 +213,10 @@ function logIn() {
     let data=new Object();
     data.username=username;
     data.password=password;
+    data.captcha = $("#g-recaptcha-response").val();
+
     let dataStr = JSON.stringify(data);
+    console.log(dataStr);
 
     $.ajax({
       url: 'http://localhost:3003/login',
@@ -303,6 +313,7 @@ function order() {
     } else {
       data.token = retrievedObject;
     }
+    data.captcha = $("#g-recaptcha-response").val();
 
     dataStr = JSON.stringify(data);
     console.log(dataStr);

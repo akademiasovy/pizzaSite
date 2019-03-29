@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="./css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6Lfc6poUAAAAAJCbj13WU_XZIMkuC8K12yR_RiwH"></script>
   <script src="./js/javascript.js"></script>
 
   <meta http-equiv="cache-control" content="no-cache"/>
@@ -13,6 +14,7 @@
   <meta http-equiv="pragma" content="no-cache"/>
 </head>
 <body>
+  <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
   <div class="container mainContainer">
     <div class="row header">
       <div class="col-md-8 textHeader">
